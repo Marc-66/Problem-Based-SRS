@@ -82,6 +82,10 @@ Ask these questions to elicit problems:
    - What is the cost of the current situation?
    - Who is impacted and how severely?
 
+5. **Physical & Infrastructure Constraints (Synguard Specific):**
+   - Welke fysieke barrières (tourniquets, deuren, slagbomen) veroorzaken het probleem?
+   - Welke hardware-lezers of identificatiemethoden (QR, BLE, biometrie) zijn momenteel betrokken?
+   - Is er sprake van een netwerk- of offline-restrictie op de locatie?
 ---
 
 ## Mode 2: CP Review & Normalization
@@ -106,7 +110,7 @@ Each Customer Problem MUST follow this syntax:
 **Components:**
 - **Subject:** Who suffers the problem (company, manager, customer, department)
 - **Verb:** Indicates severity class (must/expects/hopes)
-- **Object:** The difficulty or requirement
+- **Object:** The difficulty, operational bottleneck, or security risk (bijv. "fysieke doorstroom bij de hoofdingang", "handmatige controle van badges in cleanrooms").
 - **Penalty:** Consequence if problem persists
 
 ---
@@ -297,6 +301,9 @@ CP-001.2: The company must ensure each customer is contacted regularly
 | "System is slow" | "Report generation takes >5 minutes causing missed deadlines" |
 | "Improve UX" | "Users abandon checkout 40% of time due to confusing navigation" |
 | "Need better reporting" | "Managers must submit compliance reports within 10 days or face fines" |
+|"We hebben QR-code lezers van merk X nodig bij de poort"|"Bezoekers ervaren lange wachttijden bij de receptie omdat hun identiteit handmatig geverifieerd moet worden alvorens de poort opengaat"
+|"De Synguard database moet sneller synchroniseren met onze HR"|"Nieuwe medewerkers kunnen op hun eerste werkdag het gebouw niet in omdat de rechtenverwerking handmatig gebeurt, wat leidt tot productieverlies"
+|"We willen gezichtsherkenning"|"Onbevoegden kunnen eenvoudig meelopen (tailgating) bij de hoogbeveiligde serverruimte omdat badge-authenticatie fraudegevoelig is"
 
 ---
 
