@@ -47,9 +47,117 @@ with col1:
     st.markdown("### 📥 Klant Input")
     client_input = st.text_area(
         "Plak hier de e-mail, transcriptie of ruwe aanvraag van de klant/integrator:",
-        height=400,
-        placeholder="Bijvoorbeeld: 'The Belgian vraagt om een bezoekersmodule bij project X. Ze willen dat gasten via een QR-code binnenkomen bij de slagboom...'"
+        height=200,
+        placeholder="Bijvoorbeeld: 'The Belgian vraagt om een bezoekersmodule bij project X...'"
     )
+    
+    development_type = st.selectbox(
+        "Wat voor type ontwikkelingsverzoek is dit?",
+        [
+            "1. Hardware Integrations SynApp/Con or extension with 3rd party device",
+            "2. Back-end Software integrations with 3rd party solution",
+            "3. New Software functionality impacting flow/operation/logic/UI",
+            "4. New functionality related to Mobile app or Cloud",
+            "5. New requirements related to Cyber Security or local Compliance",
+            "6. New requirement related to AI & Data specific"
+        ]
+    )
+
+    # --- DE BUSINESS VALUE EXPANDER (VISUELE VELDEN OP HET SCHERM) ---
+    with st.expander("💼 Commerciële Impact & Business Value (Optioneel)"):
+        st.markdown("#### Commerciële Driver")
+        business_driver = st.radio(
+            "Wat is de primaire reden voor deze aanvraag?",
+            [
+                "Requested in Official Tender",
+                "Requested as 'Custom Work' via Partner",
+                "Required to win the Project/End Customer",
+                "Required to Onboard new Partner",
+                "Required to compete with competitor",
+                "Requested by the Partner to become more competitive",
+                "Request is based on market or technology trend",
+                "New Idea to increase the overall value of Synguard"
+            ]
+        )
+        
+        is_customer_specific = st.radio(
+            "Is dit specifiek voor één klant of herbruikbaar?",
+            ["Customer Specific (Unique)", "Usable by other customers as well (Multi-tenant)"]
+        )
+        
+        st.markdown("#### Markt & Verticalen")
+        verticals = st.multiselect(
+            "Voor welke specifieke Vertical(s) is dit bedoeld?",
+            ["Government", "Data Centre", "Hospital / Healthcare", "Logistics", "School / Education", "Offices / Corporate"]
+        )
+        
+        benchmark_competitor = st.text_input("Wat is de best concurrerende oplossing ter benchmark?", placeholder="Nedap AEOS")
+        
+        st.markdown("#### Links & Referenties")
+        link_project = st.text_input("Link naar Eindklant / Project / Tender:")
+        link_product = st.text_input("Link naar Productdata / API documentatie:")
+        
+        st.markdown("#### Financiële Cijfers")
+        total_project_value = st.number_input("Totale Projectwaarde náást deze aanvraag (in €):", min_value=0, value=0, step=1000)
+        chargeable_value = st.number_input("Wat kunnen we hiervoor rekenen (Licentie, Maatwerk in €):", min_value=0, value=0, step=500)
+        potential_yearly_revenue = st.number_input("Potentiële nieuwe omzet voor Synguard per jaar (in €):", min_value=0, value=0, step=1000)
+
+        st.markdown("---")
+        st.markdown("#### 🎯 Business Value Proposition")
+        
+        resolved_problem = st.text_area(
+            "Wat lost deze aanvraag concreet op?",
+            placeholder="Bijvoorbeeld: Voorkomt handmatige dubbele invoer..."
+        )
+        
+        value_end_customer = st.text_area(
+            "Welke waarde krijgt de EINDKLANT?",
+            placeholder="Bijvoorbeeld: Betere User Experience..."
+        )
+        
+        value_partner = st.text_area(
+            "Welke waarde krijgt de PARTNER/INTEGRATOR?",
+            placeholder="Bijvoorbeeld: Kan grotere enterprise tenders winnen..."
+        )
+        
+        value_synguard = st.text_area(
+            "Welke waarde krijgt SYNGUARD hierdoor?",
+            placeholder="Bijvoorbeeld: Blijft de brand reference..."
+        )
+
+        # --- NIEUW: FUNCTIONAL DESCRIPTION EXPANDER ---
+    with st.expander("📝 Functional Description & Scenarios (Technisch)"):
+        st.markdown("#### 1.1 Functionele Beschrijving & Context")
+        
+        current_situation = st.text_area(
+            "Huidige situatie & Pijnpunten (Current Situation):",
+            placeholder="Bijvoorbeeld: We hebben nu 3 receptionisten nodig en het duurt 20 minuten per bezoeker..."
+        )
+        
+        overall_workflow = st.text_area(
+            "Algemene Workflow / User Scenario (Wie doet wat, wat is het resultaat?):",
+            placeholder="Bijvoorbeeld: Als host nodig ik een bezoeker uit via Outlook. Bezoeker krijgt QR-code..."
+        )
+        
+        desired_functionality = st.text_area(
+            "Lijst van Gewenste Functionaliteiten (Bullet list van specifieke eisen):",
+            placeholder="- De integratie met NX moet bidirectioneel zijn\n- Virtuele knop in NX UI om deur te openen\n- Video-bookmark linken aan access event"
+        )
+        
+        st.markdown("#### External Integrations (Indien van toepassing)")
+        integration_details = st.text_area(
+            "Details over externe integratie (Systeemnaam, Doel, Data-uitwisseling, API beschikbaar?):",
+            placeholder="Systeem: iLOQ S5\nDoel: Sleutels realtime synchroniseren\nAPI: Ja, REST API documentatie beschikbaar via link."
+        )
+        
+        st.markdown("#### Kwaliteit & Randvoorwaarden")
+        ui_ux_expectations = st.text_input("UI/UX Verwachtingen (Lay-out, voorkeuren):", placeholder="Operator moet een event binnen 3 klikken kunnen verwerken.")
+        acceptance_criteria = st.text_area("Acceptatiecriteria (Wanneer is de oplossing 'goed genoeg'?):", placeholder="- Updates moeten realtime worden verzonden\n- Feature werkt op desktop en mobiel")
+        constraints_conditions = st.text_area("Restricties & Condities (IT-infrastructuur, security, deadlines):", placeholder="Moet voldoen aan ISO 27001; Deadline voor oplevering is Q4 2026.")
+        
+        st.markdown("#### 1.2 Officiële Teksten & Externe Documenten")
+        tender_text = st.text_area("Specifieke Aanbestedingstekst / Tender / Compliance tekst:", placeholder="Plak hier de letterlijke paragrafen uit het lastenboek...")
+        
     generate_button = st.button("🚀 Genereer Requirements Pijplijn", type="primary")
 
 with col2:
@@ -58,19 +166,44 @@ with col2:
     if generate_button and client_input:
         with st.spinner("AI is de Synguard Kennisbank en SRS-methodiek aan het toepassen..."):
             
-            # --- STAP 1: AFLEIDEN VAN CUSTOMER PROBLEMS (HET WAAROM) ---
+            # --- DEFINITIEVE PROMPT INCLUSIEF FUNCTIONELE DETAILS ---
             prompt_step1 = f"""
-            Je bent de Synguard AI Requirements Agent. Jouw taak is om de klantinput te analyseren conform deze methodiek:
+            Je bent de Synguard AI Requirements Agent. Jouw taak is om de klantinput, de commerciële context én de functionele specificaties te synthetiseren tot een formeel Software Requirements Specification (SRS) blauwdruk voor engineering.
             
+            === 1. CLASSIFICATIE ===
+            Type Ontwikkeling: {development_type}
+            
+            === 2. BUSINESS VALUE & ROI ===
+            - Primaire Driver: {business_driver}
+            - Herbruikbaarheid: {is_customer_specific}
+            - Doelgroep (Verticals): {', '.join(verticals) if verticals else 'Niet gespecificeerd'}
+            - Benchmark Concurrent: {benchmark_competitor}
+            - Financiële Impact: 
+              * Totale overige projectwaarde: €{total_project_value}
+              * Direct laadbare waarde (Maatwerk/Licentie): €{chargeable_value}
+              * Verwachte jaarlijkse herhalende omzet (ARR): €{potential_yearly_revenue}
+            - Waarde Keten: Eindklant ({value_end_customer}), Partner ({value_partner}), Synguard ({value_synguard})
+            
+            === 3. FUNCTIONAL REQUIREMENTS & SCENARIOS ===
+            - Huidige situatie & Pijn: {current_situation}
+            - Gewenste algemene workflow: {overall_workflow}
+            - Specifieke functionele eisen: {desired_functionality}
+            - Integratie details: {integration_details}
+            - UI/UX & Acceptatie: {ui_ux_expectations} | Criteria: {acceptance_criteria}
+            - Restricties & Condities: {constraints_conditions}
+            - Lastenboek / Tender tekst: {tender_text}
+            
+            === 4. METHODIEK INSTRUCTIES ===
             {cp_skill}
             
-            Gebruik de Synguard product- en partnercontext om entiteiten te begrijpen, maar focus je HIER puur op de PROBLEMEN van de klant (Subject, Verb, Object, Penalty).
-            
-            Synguard Producten:
-            {synguard_products}
-            
-            Input van de klant:
+            === 5. RAUWE INLINE INPUT ===
             {client_input}
+            
+            Genereer een gestructureerd technisch rapport met de volgende vaste onderdelen:
+            1. **Executive Summary & Business Case**: Analyseer de ROI en geef advies aan de Sales & Product Director over goedkeuring (gebaseerd op ARR en herbruikbaarheid).
+            2. **Current vs Desired Situation**: Breng de pijn en de oplossing in kaart.
+            3. **Functional Specifications (SRS)**: Schrijf formele "The system shall..." requirements op basis van de ingevoerde workflows, gewenste functionaliteiten en acceptatiecriteria. Maak onderscheid tussen core flows en integratie-eisen.
+            4. **Constraints & Compliance**: Formuleer de harde technische en compliancy-restricties (bijv. UK CAPS of ISO standaarden).
             """
             
             response_step1 = client.chat.completions.create(

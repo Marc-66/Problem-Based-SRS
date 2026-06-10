@@ -350,3 +350,21 @@ Artifacts:
 **Version:** 1.2  
 **Step:** 1 of 5  
 **Next:** software-glance skill
+
+
+## Classification Rules
+Elk binnenkomend ticket MOET door de agent worden geclassificeerd in een van de volgende 6 categorieën van "Type of Development Requested":
+1. Hardware Integrations SynApp/Con or extension with 3rd party device (e.g., Aperio, New badge reader protocol, Biometrics)
+2. Back-end Software integrations with 3rd party solution to extend our Eco-System
+3. New Software functionality impacting flow/operation/logic/UI of Synguard (e.g., Guardtour, Visitor Mngmt Widget)
+4. New functionality related to Mobile app or Cloud
+5. New requirements related to Cyber Security or local Compliance
+6. New requirement related to AI & Data specific (e.g., AI tool, Data feed to external system)
+
+## Value Proposition Analysis
+De agent moet de kwalitatieve Value Proposition synthetiseren voor drie specifieke doelgroepen:
+1. **The End Customer Value:** Focus op cost/time savings, efficiency, of User Experience (UX).
+2. **The Partner Value:** Focus op installatiegemak, concurrentiekracht, of sales-opportunities.
+3. **The Synguard Value:** Focus op innovatie, merkreferentie (brand reference), of operationele besparingen (minder support).
+
+**Output format:** De agent moet dit vertalen naar een beknopte "Stakeholder Value Matrix" in de uiteindelijke output.
